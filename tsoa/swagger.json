@@ -1,0 +1,351 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ITodo": {
+				"properties": {
+					"task": {
+						"type": "string"
+					},
+					"createdDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"priority": {
+						"type": "string",
+						"enum": [
+							"high",
+							"medium",
+							"low"
+						]
+					},
+					"done": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"task",
+					"createdDate",
+					"priority",
+					"done"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": ""
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/api/todo/create": {
+			"post": {
+				"operationId": "CreateTodo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITodo"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/todo/read": {
+			"get": {
+				"operationId": "ReadTodo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/todo/read/{todoId}": {
+			"get": {
+				"operationId": "ReadTodoWithId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "todoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/api/todo/update": {
+			"put": {
+				"operationId": "UpdateTodo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"properties": {
+											"id": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"id"
+										],
+										"type": "object"
+									},
+									{
+										"$ref": "#/components/schemas/ITodo"
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/todo/delete/{todoId}": {
+			"delete": {
+				"operationId": "DeleteTodo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "todoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/api/user/create": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Permission"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"role": {
+										"type": "string"
+									},
+									"password": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"role",
+									"password",
+									"username"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Permission"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"username"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/server-status": {
+			"get": {
+				"operationId": "GetServerStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"serverTime": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"serverTime",
+										"status"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Server Status"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/server-status/routes": {
+			"get": {
+				"operationId": "GetServerRoutes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Server Status"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
